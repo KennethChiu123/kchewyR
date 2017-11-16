@@ -1,0 +1,49 @@
+.contactBlock1 {
+  width:100%;
+  min-height:100%;
+}
+.contactBlock2 {
+  width:100%;
+  clear:both;
+}
+
+.contactL {
+  width:50%;
+  float:left;
+  min-height:100%;
+  img {
+    max-width:94%;
+  }
+} 
+.contactR {
+  width:42%;
+  margin-right:4%;
+  margin-left:4%;
+  float:right;
+  min-height:100%;
+  p {
+    font-size:14px;
+    text-align:justify;
+  }
+}
+
+
+@media (max-width: 770px) {
+  .contactL {
+    width:100%;
+    min-height:100%;
+    img {
+      max-width:100%;
+    }
+  } 
+  .contactR {
+    width:100%;
+    margin-right:4%;
+    margin-left:4%;
+    min-height:100%;
+    p {
+      font-size:14px;
+      text-align:justify;
+    }
+  }
+}   

@@ -1,0 +1,41 @@
+
+.bioL {
+  width:50%;
+  float:left;
+  min-height:100%;
+  img {
+    max-width:94%;
+  }
+} 
+.bioR {
+  width:42%;
+  margin-right:4%;
+  margin-left:4%;
+  float:right;
+  min-height:100%;
+  p {
+    font-size:14px;
+    text-align:justify;
+  }
+}
+
+
+@media (max-width: 770px) {
+  .bioL {
+    width:100%;
+    min-height:100%;
+    img {
+      max-width:100%;
+    }
+  } 
+  .bioR {
+    width:100%;
+    margin-right:4%;
+    margin-left:4%;
+    min-height:100%;
+    p {
+      font-size:14px;
+      text-align:justify;
+    }
+  }
+}   

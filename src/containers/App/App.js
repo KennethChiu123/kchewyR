@@ -8,10 +8,15 @@ import NavItem from 'react-bootstrap/lib/NavItem';
 import Helmet from 'react-helmet';
 import { isLoaded as isInfoLoaded, load as loadInfo } from 'redux/modules/info';
 import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/modules/auth';
-import { InfoBar } from 'components';
 import { push } from 'react-router-redux';
 import config from '../../config';
 import { asyncConnect } from 'redux-async-connect';
+
+import fbImage from './../../../images/social-fb.png';
+import igImage from './../../../images/social-instagram.png';
+import twImage from './../../../images/social-twitter.png';
+import ytImage from './../../../images/social-youtube.png';
+import spImage from './../../../images/social-spotify.png';
 
 @asyncConnect([{
   promise: ({store: {dispatch, getState}}) => {
@@ -58,7 +63,6 @@ export default class App extends Component {
   };
 
   render() {
-    const {user} = this.props;
     const styles = require('./App.scss');
 
     return (
@@ -70,17 +74,31 @@ export default class App extends Component {
               <IndexLink to="/" activeStyle={{color: '#33e0ff'}}>
                 <div className={styles.brand}/>
                 <span>{config.app.title}</span>
+                <span> </span>
               </IndexLink>
             </Navbar.Brand>
             <Navbar.Toggle/>
           </Navbar.Header>
 
           <Navbar.Collapse eventKey={0}>
-            <Nav navbar>
+            <Nav navbar pullRight>
+
+              <LinkContainer to="/bio">
+                <NavItem eventKey={2}>Bio</NavItem>
+              </LinkContainer>
+              <LinkContainer to="/music">
+                <NavItem eventKey={3}>Music</NavItem>
+              </LinkContainer>
+              <LinkContainer to="/social">
+                <NavItem eventKey={4}>Social</NavItem>
+              </LinkContainer>
+              <LinkContainer to="/contact">
+                <NavItem eventKey={5}>Contact</NavItem>
+              </LinkContainer>
+            {/*
               {user && <LinkContainer to="/chat">
                 <NavItem eventKey={1}>Chat</NavItem>
               </LinkContainer>}
-
               <LinkContainer to="/widgets">
                 <NavItem eventKey={2}>Widgets</NavItem>
               </LinkContainer>
@@ -93,7 +111,6 @@ export default class App extends Component {
               <LinkContainer to="/about">
                 <NavItem eventKey={5}>About Us</NavItem>
               </LinkContainer>
-
               {!user &&
               <LinkContainer to="/login">
                 <NavItem eventKey={6}>Login</NavItem>
@@ -104,7 +121,9 @@ export default class App extends Component {
                   Logout
                 </NavItem>
               </LinkContainer>}
+              */}
             </Nav>
+            {/*
             {user &&
             <p className={styles.loggedInMessage + ' navbar-text'}>Logged in as <strong>{user.name}</strong>.</p>}
             <Nav navbar pullRight>
@@ -112,19 +131,57 @@ export default class App extends Component {
                 <i className="fa fa-github"/>
               </NavItem>
             </Nav>
+            */}
           </Navbar.Collapse>
         </Navbar>
 
         <div className={styles.appContent}>
           {this.props.children}
         </div>
+        {/*
         <InfoBar/>
-
+        */}
         <div className="well text-center">
-          Have questions? Ask for help <a
-          href="https://github.com/erikras/react-redux-universal-hot-example/issues"
-          target="_blank">on Github</a> or in the <a
-          href="https://discord.gg/0ZcbPKXt5bZZb1Ko" target="_blank">#react-redux-universal</a> Discord channel.
+          <nav className="social-footer">
+              <ul className= "social-ul-footer ">
+                  <li className= "first">
+                      <a href="https://www.facebook.com/christophemcwhorterphotography/" >
+                          <div>
+                              <img src={fbImage} alt="Facebook" className="social-button" />
+                          </div>
+                      </a>
+                  </li>
+
+                  <li>
+                      <a href="https://twitter.com/#!/nickyzeph" >
+                          <div>
+                              <img src={twImage} alt="Twitter" className="social-button" />
+                          </div>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="http://www.youtube.com/user/amandacarsonmusic" >
+                          <div>
+                              <img src={ytImage} alt="Youtube" className="social-button" />
+                          </div>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="http://instagram.com/amandaonthemoon" >
+                          <div>
+                              <img src={igImage} alt="Instagram" className="social-button" />
+                          </div>
+                      </a>
+                  </li>
+                  <li className= "last">
+                      <a href="https://play.spotify.com/artist/2BHswvFd8tMBizVWGcAMLm" >
+                          <div>
+                              <img src={spImage} alt="Spotify" className="social-button" />
+                          </div>
+                      </a>
+                  </li>
+              </ul>
+          </nav>
         </div>
       </div>
     );
