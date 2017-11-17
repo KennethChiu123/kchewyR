@@ -20,17 +20,17 @@ export default class Home extends Component {
             showStatus={false}
             showIndicators={false}
             >
-            <a href="https://www.yahoo.com/">
+            <a href="#">
               <div>
                 <img src={mainImage0} alt="Slide1"/>
               </div>
             </a>
-            <a href="https://www.youtube.com/">
+            <a href="#">
               <div>
                 <img src={mainImage1} alt="Slide2"/>
               </div>
             </a>
-            <a href="https://www.aol.com/">
+            <a href="#">
               <div>
                 <img src={mainImage2} alt="Slide3"/>
               </div>

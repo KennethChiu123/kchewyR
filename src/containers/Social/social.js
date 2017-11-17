@@ -65,7 +65,7 @@ class Social extends Component {
 
               <div className="twitterSphere">
                   <a className="twitter-timeline"
-                  href="https://twitter.com/kchewy89?ref_src=twsrc%5Etfw">
+                  href="https://twitter.com/a_onthemoon?ref_src=twsrc%5Etfw">
                   </a>
                   <script async src="//platform.twitter.com/widgets.js" charSet="utf-8"></script>
 

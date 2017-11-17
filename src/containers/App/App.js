@@ -16,7 +16,7 @@ import fbImage from './../../../images/social-fb.png';
 import igImage from './../../../images/social-instagram.png';
 import twImage from './../../../images/social-twitter.png';
 import ytImage from './../../../images/social-youtube.png';
-import spImage from './../../../images/social-spotify.png';
+import scImage from './../../../images/social-soundcloud.png';
 
 @asyncConnect([{
   promise: ({store: {dispatch, getState}}) => {
@@ -71,7 +71,7 @@ export default class App extends Component {
         <Navbar fixedTop>
           <Navbar.Header>
             <Navbar.Brand>
-              <IndexLink to="/" activeStyle={{color: '#33e0ff'}}>
+              <IndexLink to="/" activeStyle={{color: '#008000'}}>
                 <div className={styles.brand}/>
                 <span>{config.app.title}</span>
                 <span> </span>
@@ -145,7 +145,7 @@ export default class App extends Component {
           <nav className="social-footer">
               <ul className= "social-ul-footer ">
                   <li className= "first">
-                      <a href="https://www.facebook.com/christophemcwhorterphotography/" >
+                      <a href="https://www.facebook.com/amanda.carson.9847/" >
                           <div>
                               <img src={fbImage} alt="Facebook" className="social-button" />
                           </div>
@@ -153,7 +153,7 @@ export default class App extends Component {
                   </li>
 
                   <li>
-                      <a href="https://twitter.com/#!/nickyzeph" >
+                      <a href="https://twitter.com/#!/a_onthemoon" >
                           <div>
                               <img src={twImage} alt="Twitter" className="social-button" />
                           </div>
@@ -173,10 +173,19 @@ export default class App extends Component {
                           </div>
                       </a>
                   </li>
+                  {/*
                   <li className= "last">
                       <a href="https://play.spotify.com/artist/2BHswvFd8tMBizVWGcAMLm" >
                           <div>
                               <img src={spImage} alt="Spotify" className="social-button" />
+                          </div>
+                      </a>
+                  </li>
+                  */}
+                  <li className= "last">
+                      <a href="http://www.soundcloud.com/amandaonthemoon" >
+                          <div>
+                              <img src={scImage} alt="Soundcloud" className="social-button" />
                           </div>
                       </a>
                   </li>

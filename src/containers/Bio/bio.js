@@ -4,7 +4,9 @@ import mainImage0 from './../../../images/bio1.jpg';
 const style = require('./bio.scss');
 class Bio extends Component {
   render() {
-    const biography = 'Kurt was born in Baltimore in 1988 and grew up in New Jersey and Pennsylvania. He become involved in musical theater in high school and quickly developed a love of music and performance. He majored in mathematics in college, while developing his musical and technical abilities by creating content for his YouTube channel. In 2009, he created the production company NoodleHouse Studios. In 2011 he moved to Los Angeles, where he lives and works–composing, producing , performing, and directing.';
+    const titleName = 'Amanda Carson';
+    const subHead = 'Singer/songwriter, born and raised in Los Angeles';
+    const biography = 'Combining vivid and intimately human lyrics with a sultry folk sound, Amanda draws much of her inspiration from artists like The Civil Wars, Laura Marling, Brandi Carlile, and Gregory Alan Isakov. After playing with numerous bands and comprising one half of the folk duo, Buttonwillow Locomotive, Amanda Carson\'s latest endeavor has been a solo project, and she can often be found playing at Venues around Hollywood and West Hollywood.';
     return (
       <div className="container">
         <div>
@@ -13,9 +15,13 @@ class Bio extends Component {
           </div>
           <div className={style.bioR}>
             <div>
-              <h3 className={style.bioTitle}>About</h3>
+              <h2>{titleName}</h2>
+              <h4>{subHead}</h4>
             </div>
             <div>
+              <p/>
+              <p/>
+              <p/>
               <p> {biography} </p>
             </div>
           </div>

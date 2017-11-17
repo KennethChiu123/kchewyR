@@ -14,10 +14,11 @@
   float:right;
   min-height:100%;
   p {
-    font-size:14px;
+    font-size:1em;
     text-align:justify;
   }
 }
+
 
 
 @media (max-width: 770px) {
@@ -34,7 +35,7 @@
     margin-left:4%;
     min-height:100%;
     p {
-      font-size:14px;
+      font-size:1em;
       text-align:justify;
     }
   }

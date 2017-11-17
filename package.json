@@ -1,27 +1,15 @@
 {
-  "name": "react-redux-universal-hot-example",
-  "description": "Example of an isomorphic (universal) webapp using react redux and hot reloading",
-  "author": "Erik Rasmussen <rasmussenerik@gmail.com> (http://github.com/erikras)",
+  "name": "ReactSite",
+  "description": "React Site",
+  "author": "kchewy",
   "license": "MIT",
   "version": "0.9.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/erikras/react-redux-universal-hot-example"
+    "url": "https://github.com/KennethChiu123/kchewyR"
   },
-  "homepage": "https://github.com/erikras/react-redux-universal-hot-example",
-  "keywords": [
-    "react",
-    "isomorphic",
-    "universal",
-    "webpack",
-    "express",
-    "hot reloading",
-    "react-hot-reloader",
-    "redux",
-    "starter",
-    "boilerplate",
-    "babel"
-  ],
+  "homepage": "https://github.com/KennethChiu123/kchewyR",
+  "keywords": [],
   "main": "bin/server.js",
   "scripts": {
     "start": "concurrent --kill-others \"npm run start-prod\" \"npm run start-prod-api\"",
@@ -115,6 +103,7 @@
     "less-loader": "^2.2.1",
     "lru-memoize": "^1.0.0",
     "map-props": "^1.0.0",
+    "material-ui": "^0.19.4",
     "multireducer": "^2.0.0",
     "piping": "^0.3.0",
     "pretty-error": "^1.2.0",
@@ -124,9 +113,11 @@
     "react-helmet": "^2.2.0",
     "react-inline-css": "^2.0.0",
     "react-redux": "^4.0.0",
+    "react-responsive-carousel": "^3.1.28",
     "react-router": "2.0.0",
     "react-router-bootstrap": "^0.20.1",
     "react-router-redux": "^4.0.0",
+    "react-twitter-widgets": "^1.7.1",
     "redux": "^3.0.4",
     "redux-async-connect": "^1.0.0-rc2",
     "redux-form": "^3.0.12",

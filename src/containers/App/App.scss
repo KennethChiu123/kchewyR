@@ -2,20 +2,21 @@
 .app {
   .brand {
     position: absolute;
-    $size: 40px;
-    top: 5px;
+    $size: 50px;
+    top: 1px;
     left: 5px;
     display: inline-block;
-    background: #2d2d2d url('../../../images/bio1.jpg') no-repeat center center;
+    background: url('../../../images/thumbnail.jpg') no-repeat center center;
     width: $size;
     height: $size;
-    background-size: 80%;
-    margin: 0 10px 0 0;
+    background-size: 100%;
+    margin: 0 10px 0 0px;
     border-radius: $size / 2;
+    
   }
   nav :global(.fa) {
-    font-size: 2em;
-    line-height: 20px;
+    font-size: 4em;
+    line-height: 30px;
   }
 
 }
