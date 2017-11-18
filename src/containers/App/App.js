@@ -7,6 +7,8 @@ import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import Helmet from 'react-helmet';
 import { isLoaded as isInfoLoaded, load as loadInfo } from 'redux/modules/info';
+import { isLoaded as isYTLoaded, load as loadYT } from 'redux/modules/ytvideos';
+import { isLoaded as isIGLoaded, load as loadIG } from 'redux/modules/igimages';
 import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/modules/auth';
 import { push } from 'react-router-redux';
 import config from '../../config';
@@ -22,6 +24,12 @@ import scImage from './../../../images/social-soundcloud.png';
   promise: ({store: {dispatch, getState}}) => {
     const promises = [];
 
+    if (!isYTLoaded(getState())) {
+      promises.push(dispatch(loadYT()));
+    }
+    if (!isIGLoaded(getState())) {
+      promises.push(dispatch(loadIG()));
+    }
     if (!isInfoLoaded(getState())) {
       promises.push(dispatch(loadInfo()));
     }

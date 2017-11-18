@@ -1,3 +1,5 @@
+export loadYTVideos from './youtubeVideos';
+export loadInstagram from './instagramImages';
 export loadInfo from './loadInfo';
 export loadAuth from './loadAuth';
 export login from './login';

@@ -6,10 +6,10 @@ const style = require('./music.scss');
 class YouTube extends Component {
   static get propTypes() {
     return {
-      video: PropTypes.string,
-      autoplay: PropTypes.int,
-      rel: PropTypes.int,
-      modest: PropTypes.int,
+      video: PropTypes.string.isRequired,
+      autoplay: PropTypes.string,
+      rel: PropTypes.string,
+      modest: PropTypes.string,
     };
   }
   render() {

@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
+import ___ from 'lodash';
 import 'react-twitter-widgets';
 
 
+const style = require('./social.scss');
 class Social extends Component {
 
   constructor(props) {
     super(props);
     this.state = { width: '0', height: '0' };
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+  }
+
+  componentWillMount() {
   }
 
   componentDidMount() {
@@ -29,6 +34,7 @@ class Social extends Component {
       }
     };
     foo(document, 'script', 'twitter-wjs');
+    this.instaList();
   }
 
   componentWillUnmount() {
@@ -39,29 +45,63 @@ class Social extends Component {
     this.setState({ width: window.innerWidth, height: window.innerHeight });
   }
 
+  instaList() {
+    const instagramName = 'amandaonthemoon';
+    const url = 'https://www.instagram.com/' + instagramName + '/?__a=1';
+    fetch(url)
+    .then(function(response) {
+      return response.json();
+    })
+    .then( (json) => {
+      this.setState({
+        biography: json.user.biography,
+        followed_by: json.user.followed_by,
+        follows: json.user.follows,
+        full_name: json.user.full_name,
+        username: json.user.username,
+        media: json.user.media.nodes
+      });
+    }).catch(function(err) {
+      console.log(err);
+    });
+  }
+
   render() {
-    let instaSlideshow;
-    if (window.innerWidth > 426 ) {
-      instaSlideshow = 'c54f9001e50055318fc3aa5286d0eee0';
-      console.log('big');
-    } else {
-      console.log('small');
-      instaSlideshow = '624976af3717534c9d605fa71c9952af';
-    }
-    console.log(instaSlideshow);
+    const medias = ___.map(this.state.media, (media) => {
+      return (
+        <div className={style.video1} key={media.id}>
+          <div>
+            <div className={style.descriptionL}>
+              <img src={media.display_src} alt="nothing yet" />
+            </div>
+            <div className={style.descriptionR}>
+              <div>
+                <h3 className="descriptionTitle"> </h3>
+              </div>
+              <p>{media.caption}</p>
+            </div>
+          </div>
+          <div className={style.video2}>
+          </div>
+          <hr/>
+        </div>
+            );
+    });
 
     return (
       <div className="content">
         <div className="container">
+              <div>
+              {medias}
+              </div>
+              {/*
               <div>
                   <script src="//lightwidget.com/widgets/lightwidget.js">
                   </script>
                   <embed className="instaFeed2" src={'//lightwidget.com/widgets/' + instaSlideshow + '.html'} />
               </div>
 
-              {/*
                   <!-- LightWidget WIDGET --><script src="//lightwidget.com/widgets/lightwidget.js"></script><iframe src="//lightwidget.com/widgets/c54f9001e50055318fc3aa5286d0eee0.html" scrolling="no" allowtransparency="true" class="lightwidget-widget" style="width: 100%; border: 0; overflow: hidden;"></iframe>
-              */}
 
               <div className="twitterSphere">
                   <a className="twitter-timeline"
@@ -70,6 +110,7 @@ class Social extends Component {
                   <script async src="//platform.twitter.com/widgets.js" charSet="utf-8"></script>
 
               </div>
+              */}
           </div>
       </div>
     );
