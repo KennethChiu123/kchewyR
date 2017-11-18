@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import mainImage0 from './../../../images/bio1.jpg';
 
 const style = require('./bio.scss');
-class Bio extends Component {
+export default class Bio extends Component {
   render() {
     const titleName = 'Amanda Carson';
     const subHead = 'Singer/songwriter, born and raised in Los Angeles';
@@ -30,6 +30,4 @@ class Bio extends Component {
     );
   }
 }
-
-export default Bio;
 
