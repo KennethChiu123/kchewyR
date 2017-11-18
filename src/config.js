@@ -18,7 +18,7 @@ module.exports = Object.assign({
     title: 'Amanda Carson',
     description: 'Site for Amanda Carson Music',
     head: {
-      titleTemplate: 'React Redux Example: %s',
+      titleTemplate: 'Amanda On The Moon',
       meta: [
         {name: 'description', content: 'Amanda Carson Music Site'},
         {charset: 'utf-8'},
