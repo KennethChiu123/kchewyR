@@ -1,164 +1,50 @@
-import React, { Component } from 'react';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import React, {Component} from 'react';
+import Helmet from 'react-helmet';
+import { MiniInfoBar } from 'components';
 
-import contactImg from './../../../images/contact1.jpg';
-
-const style = require('./contact.scss');
-class ContactForm extends Component {
+export default class About extends Component {
 
   state = {
-    name: '',
-    nameError: '',
-    email: '',
-    emailError: '',
-    subject: '',
-    subjectError: '',
-    message: '',
-    messageError: '',
-    messageSent: false
-  };
-
-  onSubmit = eee => {
-    eee.preventDefault();
-    const err = this.validate();
-    if (!err) {
-      delete this.state.nameError;
-      delete this.state.emailError;
-      delete this.state.subjectError;
-      delete this.state.messageError;
-      delete this.state.messageSent;
-      fetch('https://formspree.io/ken88there@gmail.com', {
-        method: 'post',
-        body: JSON.stringify(this.state),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      this.setState({
-        name: '',
-        nameError: '',
-        email: '',
-        emailError: '',
-        subject: '',
-        subjectError: '',
-        message: '',
-        messageError: '',
-        messageSent: true
-      });
-    }
-  };
-
-  updateField(field, value) {
-    this.setState({ [field]: value});
+    showKitten: false
   }
 
-  validate = () => {
-    let isError = false;
-    const errors = {
-      nameError: '',
-      emailError: '',
-      subjectError: '',
-      messageError: ''
-    };
-
-    if (this.state.name.length < 1) {
-      isError = true;
-      errors.nameError = 'Requires valid Name';
-    }
-
-    if (!/.+@.+\..+/.test(this.state.email)) {
-      isError = true;
-      errors.emailError = 'Requires valid email';
-    }
-
-    this.setState({
-      ...this.state,
-      ...errors
-    });
-
-    return isError;
-  };
+  handleToggleKitten = () => this.setState({showKitten: !this.state.showKitten});
 
   render() {
-    const contactStatus = this.state.sentContact ? 'Thank you for your message.' : 'Contact';
+    const {showKitten} = this.state;
+    const kitten = require('./kitten.jpg');
     return (
-      <div className="content-contact">
-        <div className="container">
+      <div className="container">
+        <h1>About Us</h1>
+        <Helmet title="About Us"/>
 
-        <div className={style.contactBlock1}>
-          <div>
-            <div className={style.contactL}>
-              <img src={contactImg} alt="Contact Pic" />
-            </div>
-            <div className={style.contactR}>
-                <div>
-                  <h3 className={style.contactTitle}>{contactStatus}</h3>
-                </div>
-                <div className={style.contactTitle}>
-                    <MuiThemeProvider>
-                    <form>
-                      <TextField
-                        name="name"
-                        floatingLabelText="Name"
-                        value={this.state.name}
-                        fullWidth={!false}
-                        onChange= {(event) => this.updateField('name', event.target.value)}
-                        errorText={this.state.nameError}
-                        floatingLabelFixed
-                      />
-                      <br />
-                      <TextField
-                        name="email"
-                        floatingLabelText="Email"
-                        value={this.state.email}
-                        fullWidth={!false}
-                        onChange= {(event) => this.updateField('email', event.target.value)}
-                        errorText={this.state.emailError}
-                        floatingLabelFixed
-                      />
-                      <br />
-                      <TextField
-                        name="subject"
-                        floatingLabelText="Subject"
-                        value={this.state.subject}
-                        fullWidth={!false}
-                        onChange= {(event) => this.updateField('subject', event.target.value)}
-                        errorText={this.state.usernameError}
-                        floatingLabelFixed
-                      />
-                      <br />
-                      <TextField
-                        name="message"
-                        floatingLabelText="Message"
-                        value={this.state.message}
-                        multiLine={!false}
-                        style={{textAlign: 'left'}}
-                        rows={1}
-                        rowsMax={8}
-                        fullWidth={!false}
-                        onChange= {(event) => this.updateField('message', event.target.value)}
-                        errorText={this.state.messageError}
-                        floatingLabelFixed
-                      />
-                      <br />
-                      <RaisedButton label="Submit" onClick={eee => this.onSubmit(eee)} primary />
-                    </form>
-                    </MuiThemeProvider>
+        <p>This project was originally created by Erik Rasmussen
+          (<a href="https://twitter.com/erikras" target="_blank">@erikras</a>), but has since seen many contributions
+          from the open source community. Thank you to <a
+            href="https://github.com/erikras/react-redux-universal-hot-example/graphs/contributors"
+            target="_blank">all the contributors</a>.
+        </p>
 
-                </div>
-            </div>
-            </div>
-        <div className={style.contactBlock2}>
-        </div>
-        <hr/>
-        </div>
-      </div>
+        <h3>Mini Bar <span style={{color: '#aaa'}}>(not that kind)</span></h3>
+
+        <p>Hey! You found the mini info bar! The following component is display-only. Note that it shows the same
+          time as the info bar.</p>
+
+        <MiniInfoBar/>
+
+        <h3>Images</h3>
+
+        <p>
+          Psst! Would you like to see a kitten?
+
+          <button className={'btn btn-' + (showKitten ? 'danger' : 'success')}
+                  style={{marginLeft: 50}}
+                  onClick={this.handleToggleKitten}>
+            {showKitten ? 'No! Take it away!' : 'Yes! Please!'}</button>
+        </p>
+
+        {showKitten && <div><img src={kitten}/></div>}
       </div>
     );
   }
 }
-
-
-export default ContactForm;
