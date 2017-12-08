@@ -53,6 +53,7 @@ class Social extends Component {
       return response.json();
     })
     .then( (json) => {
+      console.log(json);
       this.setState({
         biography: json.user.biography,
         followed_by: json.user.followed_by,
@@ -68,6 +69,67 @@ class Social extends Component {
 
   render() {
     const medias = ___.map(this.state.media, (media) => {
+      const captionLines = [];
+      if (typeof media.caption !== 'undefined') {
+        if ((media.caption).indexOf('#') > -1) {
+          console.log('found hashtag');
+          const caption = media.caption.split('#');
+          let phrase = '';
+          for (phrase in caption) {
+            if (phrase > 0 || (phrase === 0 && media.caption[0] === '#')) {
+              const hashtag = caption[phrase].trim().split(' ')[0].trim();
+              console.log(hashtag);
+              const tagLink = 'https://www.instagram.com/explore/tags/' + hashtag + '/?hl=en';
+              captionLines.push(<span> </span>);
+              captionLines.push(<a href={tagLink} className={style.anchorT}> #{hashtag} </a>);
+              captionLines.push(<span> </span>);
+              if (caption[phrase].trim().split(' ').length > 1) {
+                const restOfString = caption[phrase].trim().split(' ').slice(1).join(' ');
+                console.log(restOfString);
+                const userList = restOfString.split('@');
+                let user1 = '';
+                console.log(userList);
+                for (user1 in userList) {
+                  if (user1 > 0) {
+                    const usertag = userList[user1].trim().split(' ')[0].trim();
+                    const userLink = 'https://www.instagram.com/' + usertag + '/?hl=en';
+                    captionLines.push(<span> </span>);
+                    captionLines.push(<a href={userLink} className={style.anchorT}>@{usertag}</a>);
+                    captionLines.push(<span> </span>);
+                  }
+                  if (userList[user1].trim().split(' ').length > 1) {
+                    const restOfString2 = userList[user1].trim().split(' ').slice(1).join(' ');
+                    captionLines.push(<span>{restOfString2.trim()}</span>);
+                  }
+                }
+              }
+            } else {
+              console.log('Since it is false do this');
+              const userList = caption[phrase].split('@');
+              captionLines.push(<span>{userList[0]}</span>);
+              let user1 = '';
+              console.log(userList);
+              for (user1 in userList) {
+                if (user1 > 0) {
+                  const usertag = userList[user1].trim().split(' ')[0].trim();
+                  const userLink = 'https://www.instagram.com/' + usertag + '/?hl=en';
+                  captionLines.push(<span> </span>);
+                  captionLines.push(<a href={userLink} className={style.anchorT}>@{usertag}</a>);
+                  captionLines.push(<span> </span>);
+                  if (userList[user1].trim().split(' ').length > 1) {
+                    console.log(userList[user1]);
+                    const restOfString2 = userList[user1].trim().split(' ').slice(1).join(' ');
+                    console.log(restOfString2);
+                    captionLines.push(<span>{restOfString2}</span>);
+                  }
+                }
+              }
+            }
+          }
+        } else {
+          captionLines.push(<span>{media.caption}</span>);
+        }
+      }
       return (
         <div className={style.video1} key={media.id}>
           <div>
@@ -78,7 +140,9 @@ class Social extends Component {
               <div>
                 <h3 className="descriptionTitle"> </h3>
               </div>
-              <p>{media.caption}</p>
+              <div>
+                {captionLines}
+              </div>
             </div>
           </div>
           <div className={style.video2}>
