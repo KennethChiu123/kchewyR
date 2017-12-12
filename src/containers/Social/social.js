@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import ___ from 'lodash';
 import 'react-twitter-widgets';
-
+import { Carousel } from 'react-responsive-carousel';
 
 const style = require('./social.scss');
+const instagramName = 'elonmusk';
+
 class Social extends Component {
 
   constructor(props) {
@@ -16,6 +18,7 @@ class Social extends Component {
   }
 
   componentDidMount() {
+    this.instaList();
     this.updateWindowDimensions();
     window.addEventListener('resize', this.updateWindowDimensions);
     const scriptNode = document.getElementById('twitter-wjs');
@@ -34,32 +37,54 @@ class Social extends Component {
       }
     };
     foo(document, 'script', 'twitter-wjs');
-    this.instaList();
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateWindowDimensions);
   }
 
-  updateWindowDimensions() {
-    this.setState({ width: window.innerWidth, height: window.innerHeight });
+  instaSideCar = (json) => {
+    console.log('instasidecar');
+    const nodeImages = json.user.media.nodes;
+    for (let node = 0; node < nodeImages.length; node++) {
+      if (nodeImages[node].__typename === 'GraphSidecar') {
+        console.log('sidecar');
+        this.callSideCar(json, node);
+      } else if (nodeImages[node].__typename === 'ahfdah') {
+        console.log('ahdfhai');
+      } else if (nodeImages[node].__typename === 'GraphImage') {
+        console.log('regular image');
+      }
+      if (node === nodeImages.length - 1) {
+        console.log('finishing up');
+        this.setState({
+          biography: json.user.biography,
+          followed_by: json.user.followed_by,
+          follows: json.user.follows,
+          full_name: json.user.full_name,
+          username: json.user.username,
+          media: json.user.media.nodes
+        });
+      }
+    }
   }
 
-  instaList() {
-    const instagramName = 'amandaonthemoon';
-    const url = 'https://www.instagram.com/' + instagramName + '/?__a=1';
+  callSideCar = (json, node) => {
+    const url = 'https://www.instagram.com/p/' + json.user.media.nodes[node].code + '/?hl=en&taken-by=' + instagramName;
     fetch(url)
     .then(function(response) {
-      return response.json();
+      return response.text();
     })
-    .then( (json) => {
-      console.log(json);
+    .then( (html) => {
+      console.log('sidecar111');
+      const json11 = JSON.parse(html.split('window._sharedData = ')[1].split(';</script>')[0]);
+      const sidecarImages = [];
+      const edgeNodes = json11.entry_data.PostPage[0].graphql.shortcode_media.edge_sidecar_to_children.edges;
+      for (let nnn = 0; nnn < edgeNodes.length; nnn++) {
+        sidecarImages.push(edgeNodes[nnn].node.display_url);
+      }
+      json.user.media.nodes[node].sidecar01 = sidecarImages;
       this.setState({
-        biography: json.user.biography,
-        followed_by: json.user.followed_by,
-        follows: json.user.follows,
-        full_name: json.user.full_name,
-        username: json.user.username,
         media: json.user.media.nodes
       });
     }).catch(function(err) {
@@ -67,28 +92,75 @@ class Social extends Component {
     });
   }
 
+
+  updateWindowDimensions() {
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
+  }
+
+  instaList = () => {
+    console.log('isntalist');
+    const url = 'https://www.instagram.com/' + instagramName + '/?__a=1';
+    fetch(url)
+    .then(function(response) {
+      console.log(response);
+      return response.json();
+    }).then( (json) => {
+      for (let nnn = 0; nnn < json.user.media.nodes.length; nnn++) {
+        json.user.media.nodes[nnn].sidecar01 = [];
+      }
+      this.instaSideCar(json);
+    }).catch(function(err) {
+      console.log(err);
+    });
+  }
+
   render() {
+    console.log('render');
     const medias = ___.map(this.state.media, (media) => {
+      const imagesPossible = [];
+      console.log(media);
+      console.log(media.__typename);
+      console.log(media.sidecar01.length);
+      if (media.__typename === 'GraphSidecar') {
+        const sidecarImages = [];
+        for (let ima = 0; ima < media.sidecar01.length; ima++) {
+          sidecarImages.push(
+            <div>
+              <img src={media.sidecar01[ima]} alt={'Slide' + ima}/>
+            </div>
+          );
+        }
+        imagesPossible.push(
+              <Carousel
+                autoPlay={false}
+                infiniteLoop={false}
+                showArrows={!false}
+                showStatus={false}
+                showIndicators={!false}
+                >
+                {sidecarImages}
+              </Carousel>);
+      } else if (media.__typename === 'ahfdah') {
+        console.log('ahdfhai');
+      } else if (media.__typename === 'GraphImage') {
+        imagesPossible.push(<img src={media.display_src} alt="nothing yet" />);
+      }
       const captionLines = [];
       if (typeof media.caption !== 'undefined') {
         if ((media.caption).indexOf('#') > -1) {
-          console.log('found hashtag');
           const caption = media.caption.split('#');
           let phrase = '';
           for (phrase in caption) {
             if (phrase > 0 || (phrase === 0 && media.caption[0] === '#')) {
               const hashtag = caption[phrase].trim().split(' ')[0].trim();
-              console.log(hashtag);
               const tagLink = 'https://www.instagram.com/explore/tags/' + hashtag + '/?hl=en';
               captionLines.push(<span> </span>);
               captionLines.push(<a href={tagLink} className={style.anchorT}> #{hashtag} </a>);
               captionLines.push(<span> </span>);
               if (caption[phrase].trim().split(' ').length > 1) {
                 const restOfString = caption[phrase].trim().split(' ').slice(1).join(' ');
-                console.log(restOfString);
                 const userList = restOfString.split('@');
                 let user1 = '';
-                console.log(userList);
                 for (user1 in userList) {
                   if (user1 > 0) {
                     const usertag = userList[user1].trim().split(' ')[0].trim();
@@ -104,11 +176,9 @@ class Social extends Component {
                 }
               }
             } else {
-              console.log('Since it is false do this');
               const userList = caption[phrase].split('@');
               captionLines.push(<span>{userList[0]}</span>);
               let user1 = '';
-              console.log(userList);
               for (user1 in userList) {
                 if (user1 > 0) {
                   const usertag = userList[user1].trim().split(' ')[0].trim();
@@ -117,9 +187,7 @@ class Social extends Component {
                   captionLines.push(<a href={userLink} className={style.anchorT}>@{usertag}</a>);
                   captionLines.push(<span> </span>);
                   if (userList[user1].trim().split(' ').length > 1) {
-                    console.log(userList[user1]);
                     const restOfString2 = userList[user1].trim().split(' ').slice(1).join(' ');
-                    console.log(restOfString2);
                     captionLines.push(<span>{restOfString2}</span>);
                   }
                 }
@@ -134,7 +202,7 @@ class Social extends Component {
         <div className={style.video1} key={media.id}>
           <div>
             <div className={style.descriptionL}>
-              <img src={media.display_src} alt="nothing yet" />
+              {imagesPossible}
             </div>
             <div className={style.descriptionR}>
               <div>
@@ -151,7 +219,6 @@ class Social extends Component {
         </div>
             );
     });
-
     return (
       <div className="content">
         <div className="container">
