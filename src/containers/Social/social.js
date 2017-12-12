@@ -50,8 +50,9 @@ class Social extends Component {
       if (nodeImages[node].__typename === 'GraphSidecar') {
         console.log('sidecar');
         this.callSideCar(json, node);
-      } else if (nodeImages[node].__typename === 'ahfdah') {
-        console.log('ahdfhai');
+      } else if (nodeImages[node].__typename === 'GraphVideo') {
+        console.log('GraphVideo');
+        this.callGraphVideo(json, node);
       } else if (nodeImages[node].__typename === 'GraphImage') {
         console.log('regular image');
       }
@@ -67,6 +68,26 @@ class Social extends Component {
         });
       }
     }
+  }
+
+  callGraphVideo = (json, node) => {
+    const url = 'https://www.instagram.com/p/' + json.user.media.nodes[node].code + '/?hl=en&taken-by=' + instagramName;
+    fetch(url)
+    .then(function(response) {
+      return response.text();
+    })
+    .then( (html) => {
+      console.log('graphVideo12312123');
+      const json11 = JSON.parse(html.split('window._sharedData = ')[1].split(';</script>')[0]);
+      console.log(json11);
+      const videoUrl = json11.entry_data.PostPage[0].graphql.shortcode_media.video_url;
+      json.user.media.nodes[node].graphVideo = videoUrl;
+      this.setState({
+        media: json.user.media.nodes
+      });
+    }).catch(function(err) {
+      console.log(err);
+    });
   }
 
   callSideCar = (json, node) => {
@@ -140,8 +161,12 @@ class Social extends Component {
                 >
                 {sidecarImages}
               </Carousel>);
-      } else if (media.__typename === 'ahfdah') {
-        console.log('ahdfhai');
+      } else if (media.__typename === 'GraphVideo') {
+        console.log(media.graphVideo);
+        imagesPossible.push(
+          <video width="480" height="360" src={media.graphVideo} controls>
+          </video>
+        );
       } else if (media.__typename === 'GraphImage') {
         imagesPossible.push(<img src={media.display_src} alt="nothing yet" />);
       }
