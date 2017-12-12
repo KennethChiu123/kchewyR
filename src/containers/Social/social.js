@@ -4,7 +4,7 @@ import 'react-twitter-widgets';
 import { Carousel } from 'react-responsive-carousel';
 
 const style = require('./social.scss');
-const instagramName = 'elonmusk';
+const instagramName = 'amandaonthemoon';
 
 class Social extends Component {
 
@@ -77,9 +77,7 @@ class Social extends Component {
       return response.text();
     })
     .then( (html) => {
-      console.log('graphVideo12312123');
       const json11 = JSON.parse(html.split('window._sharedData = ')[1].split(';</script>')[0]);
-      console.log(json11);
       const videoUrl = json11.entry_data.PostPage[0].graphql.shortcode_media.video_url;
       json.user.media.nodes[node].graphVideo = videoUrl;
       this.setState({
@@ -99,10 +97,15 @@ class Social extends Component {
     .then( (html) => {
       console.log('sidecar111');
       const json11 = JSON.parse(html.split('window._sharedData = ')[1].split(';</script>')[0]);
+      console.log(json11);
       const sidecarImages = [];
       const edgeNodes = json11.entry_data.PostPage[0].graphql.shortcode_media.edge_sidecar_to_children.edges;
       for (let nnn = 0; nnn < edgeNodes.length; nnn++) {
-        sidecarImages.push(edgeNodes[nnn].node.display_url);
+        const edgeObj = {display_url: edgeNodes[nnn].node.display_url};
+        if (edgeNodes[nnn].node.is_video) {
+          edgeObj.video_url = edgeNodes[nnn].node.video_url;
+        }
+        sidecarImages.push(edgeObj);
       }
       json.user.media.nodes[node].sidecar01 = sidecarImages;
       this.setState({
@@ -139,17 +142,24 @@ class Social extends Component {
     console.log('render');
     const medias = ___.map(this.state.media, (media) => {
       const imagesPossible = [];
-      console.log(media);
-      console.log(media.__typename);
-      console.log(media.sidecar01.length);
       if (media.__typename === 'GraphSidecar') {
         const sidecarImages = [];
         for (let ima = 0; ima < media.sidecar01.length; ima++) {
-          sidecarImages.push(
-            <div>
-              <img src={media.sidecar01[ima]} alt={'Slide' + ima}/>
-            </div>
-          );
+          console.log(media.sidecar01[ima]);
+          if (media.sidecar01[ima].video_url) {
+            sidecarImages.push(
+              <div>
+                <video width="530" height="530" src={media.sidecar01[ima].video_url} controls poster={media.sidecar01[ima].display_url}>
+                </video>
+              </div>
+            );
+          } else {
+            sidecarImages.push(
+              <div>
+                <img src={media.sidecar01[ima].display_url} alt={'Slide' + ima}/>
+              </div>
+            );
+          }
         }
         imagesPossible.push(
               <Carousel
@@ -157,34 +167,37 @@ class Social extends Component {
                 infiniteLoop={false}
                 showArrows={!false}
                 showStatus={false}
-                showIndicators={!false}
+                showIndicators={false}
                 >
                 {sidecarImages}
               </Carousel>);
       } else if (media.__typename === 'GraphVideo') {
         console.log(media.graphVideo);
         imagesPossible.push(
-          <video width="480" height="360" src={media.graphVideo} controls>
+          <video width="530" height="530" src={media.graphVideo} controls>
           </video>
         );
       } else if (media.__typename === 'GraphImage') {
         imagesPossible.push(<img src={media.display_src} alt="nothing yet" />);
       }
       const captionLines = [];
+      console.log(media.caption);
       if (typeof media.caption !== 'undefined') {
-        if ((media.caption).indexOf('#') > -1) {
-          const caption = media.caption.split('#');
+        if ((media.caption).indexOf('#') > -1 || (media.caption).indexOf('@') > -1) {
+          const c1 = ' ' + media.caption;
+          const caption = c1.split('#');
+          console.log(caption);
           let phrase = '';
           for (phrase in caption) {
-            if (phrase > 0 || (phrase === 0 && media.caption[0] === '#')) {
+            if (phrase > 0 || (phrase === 0 && media.caption[1] === '#')) {
               const hashtag = caption[phrase].trim().split(' ')[0].trim();
               const tagLink = 'https://www.instagram.com/explore/tags/' + hashtag + '/?hl=en';
               captionLines.push(<span> </span>);
-              captionLines.push(<a href={tagLink} className={style.anchorT}> #{hashtag} </a>);
+              captionLines.push(<a href={tagLink} className={style.anchorT}>#{hashtag}</a>);
               captionLines.push(<span> </span>);
               if (caption[phrase].trim().split(' ').length > 1) {
                 const restOfString = caption[phrase].trim().split(' ').slice(1).join(' ');
-                const userList = restOfString.split('@');
+                const userList = restOfString.split(' @');
                 let user1 = '';
                 for (user1 in userList) {
                   if (user1 > 0) {
@@ -201,7 +214,8 @@ class Social extends Component {
                 }
               }
             } else {
-              const userList = caption[phrase].split('@');
+              const userList = caption[phrase].split(' @');
+              console.log(userList);
               captionLines.push(<span>{userList[0]}</span>);
               let user1 = '';
               for (user1 in userList) {
