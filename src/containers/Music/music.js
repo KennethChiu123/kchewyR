@@ -35,6 +35,9 @@ class Music extends Component {
   }
 
   componentWillMount() {
+  }
+
+  componentDidMount() {
     this.videosList();
   }
 

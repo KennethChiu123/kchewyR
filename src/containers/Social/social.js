@@ -149,7 +149,7 @@ class Social extends Component {
           if (media.sidecar01[ima].video_url) {
             sidecarImages.push(
               <div>
-                <video width="530" height="530" src={media.sidecar01[ima].video_url} controls poster={media.sidecar01[ima].display_url}>
+                <video width="100%" height="auto" src={media.sidecar01[ima].video_url} controls poster={media.sidecar01[ima].display_url}>
                 </video>
               </div>
             );
@@ -174,7 +174,7 @@ class Social extends Component {
       } else if (media.__typename === 'GraphVideo') {
         console.log(media.graphVideo);
         imagesPossible.push(
-          <video width="530" height="530" src={media.graphVideo} controls>
+          <video width="100%" height="auto" src={media.graphVideo} controls>
           </video>
         );
       } else if (media.__typename === 'GraphImage') {
