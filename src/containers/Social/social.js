@@ -4,7 +4,7 @@ import 'react-twitter-widgets';
 import { Carousel } from 'react-responsive-carousel';
 
 const style = require('./social.scss');
-const instagramName = 'amandaonthemoon';
+const instagramName = 'kchewy89';
 
 class Social extends Component {
 
