@@ -13,6 +13,7 @@ export default class Home extends Component {
     return (
       <div className={styles.carouselContainer}>
         <div className={styles.carouselContent}>
+        <hr/>
           <Carousel
             autoPlay={!false}
             infiniteLoop={!false}

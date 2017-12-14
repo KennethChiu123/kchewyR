@@ -10,6 +10,7 @@ export default class Bio extends Component {
     return (
       <div className="container">
         <div>
+          <hr/>
           <div className={style.bioL}>
             <img src={mainImage0} alt="Bio Pic" />
           </div>

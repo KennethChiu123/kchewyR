@@ -86,7 +86,7 @@ class ContactForm extends Component {
     return (
       <div className="content-contact">
         <div className="container">
-
+        <hr/>
         <div className={style.contactBlock1}>
           <div>
             <div className={style.contactL}>

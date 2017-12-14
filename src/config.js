@@ -18,7 +18,7 @@ module.exports = Object.assign({
     title: 'Amanda Carson',
     description: 'Site for Amanda Carson Music',
     head: {
-      titleTemplate: 'Amanda On The Moon',
+      titleTemplate: 'Amanda Carson: %s',
       meta: [
         {name: 'description', content: 'Amanda Carson Music Site'},
         {charset: 'utf-8'},
