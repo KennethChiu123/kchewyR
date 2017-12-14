@@ -23,7 +23,7 @@ module.exports = Object.assign({
         {name: 'description', content: 'Amanda Carson Music Site'},
         {charset: 'utf-8'},
         {property: 'og:site_name', content: 'Amanda Carson Music'},
-        {property: 'og:image', content: 'https://scontent-lax3-1.cdninstagram.com/t51.2885-15/e35/22639176_1062038843933587_392429714431541248_n.jp'},
+        {property: 'og:image', content: 'https://scontent-lax3-1.cdninstagram.com/t51.2885-15/e35/22639176_1062038843933587_392429714431541248_n.jpg'},
         {property: 'og:locale', content: 'en_US'},
         {property: 'og:title', content: 'Amanda Carson Music'},
         {property: 'og:description', content: 'Site for Amanda Carson Music'},
