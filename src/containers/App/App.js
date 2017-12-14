@@ -12,6 +12,7 @@ import { isLoaded as isIGLoaded, load as loadIG } from 'redux/modules/igimages';
 import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/modules/auth';
 import { push } from 'react-router-redux';
 import config from '../../config';
+import configCustom from '../../config_custom';
 import { asyncConnect } from 'redux-async-connect';
 
 import fbImage from './../../../images/social-fb.png';
@@ -108,7 +109,7 @@ export default class App extends Component {
           <nav className="social-footer">
               <ul className= "social-ul-footer ">
                   <li className= "first">
-                      <a href="https://www.facebook.com/amanda.carson.9847/" >
+                      <a href={configCustom.app.home.facebook_href} >
                           <div>
                               <img src={fbImage} alt="Facebook" className="social-button" />
                           </div>
@@ -116,21 +117,21 @@ export default class App extends Component {
                   </li>
 
                   <li>
-                      <a href="https://twitter.com/#!/a_onthemoon" >
+                      <a href={configCustom.app.home.twitter_href} >
                           <div>
                               <img src={twImage} alt="Twitter" className="social-button" />
                           </div>
                       </a>
                   </li>
                   <li>
-                      <a href="http://www.youtube.com/user/amandacarsonmusic" >
+                      <a href={configCustom.app.home.youtube_href} >
                           <div>
                               <img src={ytImage} alt="Youtube" className="social-button" />
                           </div>
                       </a>
                   </li>
                   <li>
-                      <a href="http://instagram.com/amandaonthemoon" >
+                      <a href={configCustom.app.home.instagram_href} >
                           <div>
                               <img src={igImage} alt="Instagram" className="social-button" />
                           </div>
@@ -138,7 +139,7 @@ export default class App extends Component {
                   </li>
                   {/*
                   <li className= "last">
-                      <a href="https://play.spotify.com/artist/2BHswvFd8tMBizVWGcAMLm" >
+                      <a href={configCustom.app.home.spotify_href} >
                           <div>
                               <img src={spImage} alt="Spotify" className="social-button" />
                           </div>
@@ -146,7 +147,7 @@ export default class App extends Component {
                   </li>
                   */}
                   <li className= "last">
-                      <a href="http://www.soundcloud.com/amandaonthemoon" >
+                      <a href={configCustom.app.home.soundcloud_href} >
                           <div>
                               <img src={scImage} alt="Soundcloud" className="social-button" />
                           </div>

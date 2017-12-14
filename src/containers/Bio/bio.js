@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import Helmet from 'react-helmet';
 import mainImage0 from './../../../images/bio1.jpg';
+import configCustom from '../../config_custom';
 
 const style = require('./bio.scss');
 export default class Bio extends Component {
   render() {
-    const titleName = 'Amanda Carson';
-    const subHead = 'Singer/songwriter, born and raised in Los Angeles';
-    const biography = 'Combining vivid and intimately human lyrics with a sultry folk sound, Amanda draws much of her inspiration from artists like The Civil Wars, Laura Marling, Brandi Carlile, and Gregory Alan Isakov. After playing with numerous bands and comprising one half of the folk duo, Buttonwillow Locomotive, Amanda Carson\'s latest endeavor has been a solo project, and she can often be found playing at Venues around Hollywood and West Hollywood.';
+    const titleName = configCustom.app.bio.bioTitle1;
+    const subHead = configCustom.app.bio.bioTitle2;
+    const biography = configCustom.app.bio.bioDescription;
+
     return (
       <div>
         <Helmet title="Bio"/>

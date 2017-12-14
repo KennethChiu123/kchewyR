@@ -3,6 +3,7 @@ import TextField from 'material-ui/TextField';
 import Helmet from 'react-helmet';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import configCustom from '../../config_custom';
 
 import contactImg from './../../../images/contact1.jpg';
 
@@ -30,7 +31,7 @@ class ContactForm extends Component {
       delete this.state.subjectError;
       delete this.state.messageError;
       delete this.state.messageSent;
-      fetch('https://formspree.io/ken88there@gmail.com', {
+      fetch('https://formspree.io/' + configCustom.app.contact.email_address, {
         method: 'post',
         body: JSON.stringify(this.state),
         headers: {

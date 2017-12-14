@@ -3,9 +3,10 @@ import ___ from 'lodash';
 import 'react-twitter-widgets';
 import Helmet from 'react-helmet';
 import { Carousel } from 'react-responsive-carousel';
+import configCustom from '../../config_custom';
 
 const style = require('./social.scss');
-const instagramName = 'amandaonthemoon';
+const instagramName = configCustom.app.social.instagram_account;
 
 class Social extends Component {
 

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import ___ from 'lodash';
 import Helmet from 'react-helmet';
+import configCustom from '../../config_custom';
 
 const style = require('./music.scss');
 
@@ -43,7 +44,7 @@ class Music extends Component {
   }
 
   videosList() {
-    const url = 'https://www.googleapis.com/youtube/v3/search\?part\=snippet\&channelId\=UCA95A2hb8QPRTeV9C74uToQ\&maxResults\=10\&order\=date\&type\=video\&key\=AIzaSyDEwr0n0SB2Etm0GEjGsTrYOVvPafAfysQ';
+    const url = 'https://www.googleapis.com/youtube/v3/search\?part\=snippet\&channelId\=' + configCustom.app.music.youtube_channel_id + '\&maxResults\=10\&order\=date\&type\=video\&key\=AIzaSyDEwr0n0SB2Etm0GEjGsTrYOVvPafAfysQ';
     fetch(url)
     .then(function(response) {
       return response.json();
@@ -59,7 +60,6 @@ class Music extends Component {
 
 
   render() {
-    console.log(this.state.videos);
     const videos = ___.map(this.state.videos, (video) => {
       return (
         <div className={style.video1} key={video.id.videoId}>
