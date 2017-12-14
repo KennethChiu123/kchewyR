@@ -51,23 +51,16 @@ export default class App extends Component {
     pushState: PropTypes.func.isRequired
   };
 
-  static contextTypes = {
-    store: PropTypes.object.isRequired
-  };
-
-  componentWillReceiveProps(nextProps) {
-    if (!this.props.user && nextProps.user) {
-      // login
-      this.props.pushState('/loginSuccess');
-    } else if (this.props.user && !nextProps.user) {
-      // logout
-      this.props.pushState('/');
-    }
+  constructor(props) {
+    super(props);
+    this.state = {};
   }
 
-  handleLogout = (event) => {
-    event.preventDefault();
-    this.props.logout();
+  setNavExpanded = (expanded) => {
+    this.setState({ navExpanded: expanded });
+  };
+  closeNav = () => {
+    this.setState({ navExpanded: false });
   };
 
   render() {
@@ -76,7 +69,9 @@ export default class App extends Component {
     return (
       <div className={styles.app}>
         <Helmet {...config.app.head}/>
-        <Navbar fixedTop>
+        <Navbar fixedTop
+        onToggle={this.setNavExpanded}
+        expanded={this.state.navExpanded}>
           <Navbar.Header>
             <Navbar.Brand>
               <IndexLink to="/" activeStyle={{color: '#008000'}}>
@@ -89,8 +84,7 @@ export default class App extends Component {
           </Navbar.Header>
 
           <Navbar.Collapse eventKey={0}>
-            <Nav navbar pullRight>
-
+            <Nav navbar pullRight onSelect={this.closeNav}>
               <LinkContainer to="/bio">
                 <NavItem eventKey={2}>Bio</NavItem>
               </LinkContainer>
