@@ -4,7 +4,7 @@ import 'react-twitter-widgets';
 import { Carousel } from 'react-responsive-carousel';
 
 const style = require('./social.scss');
-const instagramName = 'kchewy89';
+const instagramName = 'amandaonthemoon';
 
 class Social extends Component {
 
@@ -261,6 +261,7 @@ class Social extends Component {
     return (
       <div className="content">
         <div className="container">
+              <hr/>
               <div>
               {medias}
               </div>
