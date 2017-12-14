@@ -116,7 +116,6 @@ class Social extends Component {
     });
   }
 
-
   updateWindowDimensions() {
     this.setState({ width: window.innerWidth, height: window.innerHeight });
   }
@@ -148,14 +147,15 @@ class Social extends Component {
           console.log(media.sidecar01[ima]);
           if (media.sidecar01[ima].video_url) {
             sidecarImages.push(
-              <div>
-                <video width="100%" height="auto" src={media.sidecar01[ima].video_url} controls poster={media.sidecar01[ima].display_url}>
+              <div className={style.carouselImageProxy}>
+                <img src={media.sidecar01[ima].display_url} alt={'Slide' + ima} />
+                <video width="90%" height="auto" src={media.sidecar01[ima].video_url} controls poster={media.sidecar01[ima].display_url}>
                 </video>
               </div>
             );
           } else {
             sidecarImages.push(
-              <div>
+              <div className={style.carouselImageCenter}>
                 <img src={media.sidecar01[ima].display_url} alt={'Slide' + ima}/>
               </div>
             );
@@ -165,8 +165,8 @@ class Social extends Component {
               <Carousel
                 autoPlay={false}
                 infiniteLoop={false}
-                showArrows={!false}
-                showStatus={false}
+                showArrows={false}
+                showStatus={!false}
                 showIndicators={false}
                 >
                 {sidecarImages}
@@ -174,7 +174,7 @@ class Social extends Component {
       } else if (media.__typename === 'GraphVideo') {
         console.log(media.graphVideo);
         imagesPossible.push(
-          <video width="100%" height="auto" src={media.graphVideo} controls>
+          <video width="100%" height="auto" className="img-thumbnail" src={media.graphVideo} controls>
           </video>
         );
       } else if (media.__typename === 'GraphImage') {
