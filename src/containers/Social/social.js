@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ___ from 'lodash';
 import 'react-twitter-widgets';
+import Helmet from 'react-helmet';
 import { Carousel } from 'react-responsive-carousel';
 
 const style = require('./social.scss');
@@ -245,30 +246,33 @@ class Social extends Component {
             );
     });
     return (
-      <div className="content">
-        <div className="container">
-              <hr/>
-              <div>
-              {medias}
-              </div>
-              {/*
-              <div>
-                  <script src="//lightwidget.com/widgets/lightwidget.js">
-                  </script>
-                  <embed className="instaFeed2" src={'//lightwidget.com/widgets/' + instaSlideshow + '.html'} />
-              </div>
+      <div>
+        <Helmet title="Social"/>
+        <div className="content">
+          <div className="container">
+                <hr/>
+                <div>
+                {medias}
+                </div>
+                {/*
+                <div>
+                    <script src="//lightwidget.com/widgets/lightwidget.js">
+                    </script>
+                    <embed className="instaFeed2" src={'//lightwidget.com/widgets/' + instaSlideshow + '.html'} />
+                </div>
 
-                  <!-- LightWidget WIDGET --><script src="//lightwidget.com/widgets/lightwidget.js"></script><iframe src="//lightwidget.com/widgets/c54f9001e50055318fc3aa5286d0eee0.html" scrolling="no" allowtransparency="true" class="lightwidget-widget" style="width: 100%; border: 0; overflow: hidden;"></iframe>
+                    <!-- LightWidget WIDGET --><script src="//lightwidget.com/widgets/lightwidget.js"></script><iframe src="//lightwidget.com/widgets/c54f9001e50055318fc3aa5286d0eee0.html" scrolling="no" allowtransparency="true" class="lightwidget-widget" style="width: 100%; border: 0; overflow: hidden;"></iframe>
 
-              <div className="twitterSphere">
-                  <a className="twitter-timeline"
-                  href="https://twitter.com/a_onthemoon?ref_src=twsrc%5Etfw">
-                  </a>
-                  <script async src="//platform.twitter.com/widgets.js" charSet="utf-8"></script>
+                <div className="twitterSphere">
+                    <a className="twitter-timeline"
+                    href="https://twitter.com/a_onthemoon?ref_src=twsrc%5Etfw">
+                    </a>
+                    <script async src="//platform.twitter.com/widgets.js" charSet="utf-8"></script>
 
-              </div>
-              */}
-          </div>
+                </div>
+                */}
+            </div>
+        </div>
       </div>
     );
   }

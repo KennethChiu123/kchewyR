@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ___ from 'lodash';
+import Helmet from 'react-helmet';
 
 const style = require('./music.scss');
 
@@ -80,10 +81,12 @@ class Music extends Component {
             );
     });
     return (
-      <div className="container">
-        <hr/>{videos}
+      <div>
+        <Helmet title="Music"/>
+        <div className="container">
+          <hr/>{videos}
+        </div>
       </div>
-
     );
   }
 }

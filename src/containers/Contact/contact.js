@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
+import Helmet from 'react-helmet';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
@@ -84,6 +85,8 @@ class ContactForm extends Component {
   render() {
     const contactStatus = this.state.sentContact ? 'Thank you for your message.' : 'Contact';
     return (
+      <div>
+        <Helmet title="Contact"/>
       <div className="content-contact">
         <div className="container">
         <hr/>
@@ -154,6 +157,7 @@ class ContactForm extends Component {
         </div>
         <hr/>
         </div>
+      </div>
       </div>
       </div>
     );
